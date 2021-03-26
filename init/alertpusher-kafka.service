@@ -1,0 +1,17 @@
+[Unit]
+Description=Kafka Alert Pusher
+After=network-online.target
+StartLimitInterval=0
+
+[Service]
+Type=simple
+Environment=http_proxy=
+ExecStart=/usr/local/bin/alertpusher-kafka -d1 --port=8088 --kafka-hosts=kafka-01.example.com --topic=alert.noc
+KillMode=control-group
+KillSignal=TERM
+Restart=always
+RestartSec=3
+MemoryHigh=50M
+
+[Install]
+WantedBy=multi-user.target
